@@ -1,0 +1,334 @@
+Create a php webpage and print “hello world”.
+<Html>
+<Head>
+<Title> My Simple Program </Title>
+</head>
+<Body>
+ <?php
+ echo "Hello World"
+ ?>
+</Body>
+</Html>
+----------------------------------------------------------------------------------------
+Write a php program to find maximum of three numbers.
+<html>
+<head>
+<title> Max out of three </title>
+</head>
+<body>
+ <?php
+ $a = 1;
+ $b = 4;
+ $c = 3;
+ if($a > $b)
+ {
+ if($a > $c)
+ echo "Maximum num a = $a";
+ else
+ echo "Maximum num c = $c";
+ }
+ else
+ {
+ if($c > $b)
+ echo "Maximum num c = $c";
+else
+ echo "Maximum num b = $b";
+ }
+ ?>
+</body>
+</html>
+
+------------------------------------------------------------------------------------------
+Give the example of variable function: print_r()
+
+<html>
+<head>
+<title>
+Variable Function:print_r()
+</title>
+</head>
+<body>
+ <pre>
+ <?php
+$data = array('e_no'=>106680307009,'e_name'=>'Bipin R.
+Prajapati','S.P.I'=>array('1st'=>7.75,'2nd'=>8.27,'3rd'=>8.20,'4th'=>7.57));
+print_r ($data);
+ ?>
+ </pre>
+</body>
+</html>
+------------------------------------------------------------------------------------------
+Write a program to Develop student registration form and display
+all the submitted data on another page.
+Form fill.php
+<html>
+<head>
+<title>insert data in form</title>
+</head>
+<body>
+<form action = "getdata.php" method = "POST">
+Name:
+<input type = "text" name = "txtname">
+<br><br>
+Roll no.:
+<input type = "text" name = "txtr_no">
+<br><br>
+Address:
+<textarea name = "add" type = "textarea"></textarea>
+<br><br>
+Contyact No:
+<input type = "text" name = "txtc_no">
+<br><br>
+Email ID:
+<input type = "text" name = "txteid">
+<br><br>
+<input type = "Submit" name = "insert" value = "Save">
+<input type = "Reset" value = "Cancle">
+</form>
+</body>
+</html>
+
+Getdata.php
+
+<html>
+<head>
+<title>get data from another page</title>
+</head>
+<body>
+ <?php
+
+echo "Name:" .$_POST["txtname"]."</br>";
+echo "Roll no.:".$_POST["txtr_no"]."</br>";
+echo "Address:".$_POST["add"]."</br>";
+echo "Contact No.:".$_POST["txtc_no"]."</br>";
+echo "Email ID:".$_POST["txteid"]."</br>";
+
+ ?>
+</body>
+
+----------------------------------------------------------------------------------------------------
+ PHP Sessions –Illustrated with a simple login system
+1. The first thing we need is a form where people can enter their username and
+password. It could look like this:
+
+
+<html>
+<head>
+<title>Login</title>
+</head>
+<body>
+<form method="post" action="login.php">
+<p>Username: <input type="text" name="username" /></p>
+<p>Password: <input type="text" name="password" /></p>
+<p><input type="submit" value="Let me in" /></p>
+</form>
+</body>
+</html>
+
+
+2. Then we create the file: login.php. In this file, we check whether it is the correct
+username and password that has been entered. If that is the case, we set a session
+that says that this user is logged in with the correct username and password.
+<html>
+<head>
+<title>Login</title>
+</head>
+<body>
+<?php
+// Check if username and password are correct
+if ($_POST["username"] == "php" && $_POST["password"] == "php") {
+// If correct, we set the session to YES
+ session_start();
+ $_SESSION["Login"] = "YES";
+ echo "<h1>You are now logged correctly in</h1>";
+ echo "<p><a href='document.php'>Link to protected file</a><p/>";
+}
+else {
+// If not correct, we set the session to NO
+ session_start();
+ $_SESSION["Login"] = "NO";
+ echo "<h1>You are NOT logged correctly in </h1>";
+ echo "<p><a href='document.php'>Link to protected file</a></p>";
+}
+?>
+</body>
+</html>
+------------------------------------------------------------------------------------------
+Write a program that keeps track of how many times a visitor has
+loaded the page.
+<html>
+<head>
+<title>php counter</title>
+</head>
+<body>
+ <?php
+session_start();
+if(isset($_SESSION['counter']))
+{
+ $_SESSION['counter'] += 1;
+}
+else
+{
+ $_SESSION['counter'] = 1;
+}
+echo "You have visited this page ".$_SESSION['counter']." time in this session";
+ ?>
+</body>
+</html>
+-----------------------------------------------------------------------------------------
+AIM: - Write a PHP program to insert record into a table STUDENT(id,Name,branch,mark) using MySQL.
+------------------------------------------------------------------------------------------
+AIM: - Write a program to update table
+--------------------------------------------------------------------------------------------------------
+Write a PHP program to select data and show into table format.
+
+sample
+ $query = "select * from Student";
+$sldt = mysql_query($query,$con);
+if(!$sldt)
+{
+ die("data not selected".mysql_error());
+}
+echo "<table border='1'>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Branch</th>
+</tr>";
+while($row = mysql_fetch_array($sldt))
+{
+echo "<tr>";
+echo "<td>".$row['id']."</td>";
+echo "<td>".$row['name']."</td>";
+echo "<td>".$row['branch']."</td>";
+echo "</tr>";
+}
+
+echo "</table>";
+
+---------------------------------------------------------
+Create a student Registration in PHP and Save and Display the
+student Records.
+<html>
+<head>
+<title>general form</title>
+</head>
+<body bgcolor="aakk">
+<form action = "<?php $_PHP_SELF ?>" method = "POST">
+Name:
+<input type = "text" name = "txtname">
+<br><br>
+Roll no.:
+<input type = "text" name = "txtr_no">
+<br><br>
+Gender:
+<input type = "text" name = "txtgen">
+<br><br>
+
+Address:
+<textarea name = "add" type = "textarea"></textarea>
+<br><br>
+<input type = "Submit" name = "insert" value = "Save">
+<input type = "Reset" value = "Cancle">
+</form>
+</body>
+</html>
+
+<?php
+if(isset($_POST['insert']))
+ {
+ $con = mysql_connect("localhost","root","");
+ if($con)
+ {
+echo "Mysql connection ok<br>";
+mysql_select_db("studinfo",$con);
+$name =$_POST['txtname'];
+$rollno = $_POST['txtr_no'];
+$gender =$_POST['txtgen'];
+$address = $_POST['add'];
+$insert = "insert into info values('$name',$rollno,'$gender','$address')";
+if(mysql_query($insert,$con))
+{
+echo "Data inserted successfully<br>";
+}
+$query = "select * from info";
+$sldt = mysql_query($query,$con);
+echo "<table border='1'>
+<tr>
+<th>Name</th>
+<th>Roll No</th>
+<th>Gender</th>
+<th>Address</th>
+</tr>";
+while($row = mysql_fetch_array($sldt))
+
+{
+echo "<tr>";
+echo "<td>".$row['name']."</td>";
+echo "<td>".$row['rollno']."</td>";
+echo "<td>".$row['gen']."</td>";
+echo "<td>".$row['address']."</td>";
+echo "</tr>";
+}
+echo "</table>";
+mysql_close($con);
+ }
+ }
+?>
+-----------------------------------------------------------------------------------
+Write a program to read customer information like c_no, c_name,
+item_purchased and mob_no from customer table and display all this
+information in table format on output screen.
+
+example 
+
+<html>
+<head>
+<title>display data in table format</title>
+</head>
+<body>
+ <?php
+ $con = mysql_connect("localhost","root","");
+if(!$con)
+{
+ die("not connected".mysql_error());
+}
+echo "Connection open"."<br/>";
+$sldb = mysql_select_db("coust",$con);
+if(!$sldb)
+{
+ die("not found".mysql_error());
+}
+echo "Database selected"."<br/>";
+$query = "select * from customer";
+$sql = mysql_query($query);
+echo "<table border = '1'>
+<tr>
+<th>C_No</th>
+<th>C_Name</th>
+<th>Item_Purchased</th>
+<th>Mob_no</th>
+</tr>";
+while($row = mysql_fetch_array($sql))
+{
+ echo "<tr>";
+ echo "<td>".$row['c_no']."</td>";
+ echo "<td>".$row['c_name']."</td>";
+ echo "<td>".$row['item_purchased']."</td>";
+ echo "<td>".$row['mob_no']."</td>";
+
+ echo "</tr>";
+}
+echo "</table>";
+ ?>
+</body>
+</html>
+---------------------------------------------------------------------------------
+1. Outline a registration form using PHP and do necessary validations. (K4)
+2. Compose Electricity bill from user input based on a given tariff using PHP. (K6)
+
+3. Build a PHP code to store name of students in an array and display it using print_r
+function. Sort and Display the same using asort & arsort functions. (K6)
+4. Build a PHP code to store name of Indian Cricket players in an array and display
+the same in HTML table. (K6)
+------------------------------------------------------------------------------------
